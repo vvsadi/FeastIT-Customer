@@ -35,7 +35,7 @@
     justify-content: space-between;
 }
 
-.my-orders {
+.my-orders-page {
     width: 100%;
     margin: 0 auto;
     padding-top: 80px; /* because navbar is fixed */

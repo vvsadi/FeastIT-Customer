@@ -57,7 +57,7 @@ const MyOrders = () => {
     };
     
     return (
-        <div className="my-orders">
+        <div className="my-orders-page">
             <Navbar_Wrapper />
             <h2 style={{display: 'flex', textAlign: 'center', paddingTop: '20px', color: 'black', justifyContent: 'center'}}>My Orders</h2>
             <div className="my-orders-container">
