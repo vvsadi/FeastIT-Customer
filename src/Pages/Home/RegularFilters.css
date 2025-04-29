@@ -1,0 +1,29 @@
+.filters-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    margin-left: 50px;
+    margin-right: 400px;
+    padding-bottom: 20px;    
+}
+.filter-name{
+    padding-left: 10px;
+    font-size: smaller;
+}
+
+.left-arrow-button {
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+    border-color: transparent;
+
+}
+
+.right-arrow-button {
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+    border-color: transparent;
+}

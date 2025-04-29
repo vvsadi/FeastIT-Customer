@@ -1,0 +1,8 @@
+.account-overview-container{
+    display: flex;
+}
+.account-overview-items-container{
+    background-color: white;
+    width: 100vw;
+    margin-top: 64px;
+}

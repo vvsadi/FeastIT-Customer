@@ -1,0 +1,7 @@
+.wishlist-vendors{
+    display: flex;
+    gap: 100px;
+    padding-left: 50px;
+    flex-wrap: wrap;
+    padding-top: 100px;
+}

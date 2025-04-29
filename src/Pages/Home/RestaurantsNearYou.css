@@ -1,0 +1,51 @@
+.restaurants-near-you-title-container {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+.see-all-container {
+    right: 0;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    text-align: center;
+}
+
+.see-all-restaurants{
+    color: black;
+}
+
+.see-all-restaurants:hover{
+    color: #E87500;
+}
+.restaurants-near-you-title{
+    text-align: center;
+    font-size: larger;
+    font-weight: bold;
+    padding-left: 10px;
+}
+.restaurants-near-you-title-container{
+    padding-top: 10px;
+}
+.restaurants-nearby{
+    display: flex;
+    gap: 100px;
+    padding-left: 50px;
+}
+.nearby-restaurant{
+    border: solid 1px black;
+    border-radius: 20px;
+    width: 205px;
+    height: fit-content;
+}
+.nearby-restaurant-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nearby-rest{
+    color: black;
+}
+.nearby-rest:hover{
+    color: #E87500;
+}

@@ -1,0 +1,17 @@
+.manage-account-fields-container{
+    background-color: #124734;
+    color: white;
+    width: 250px;
+    height: 100vw;
+    flex-direction: column;
+    left: 0;
+    justify-content:flex-start;
+    padding: 10px;
+    display: flex;
+}
+.common-sidebar{
+    height: auto;
+    padding-top: 70px;
+    padding-left: 10px;
+    align-items: center;
+}
