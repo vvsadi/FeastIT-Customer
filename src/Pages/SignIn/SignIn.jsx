@@ -37,8 +37,8 @@ function SignIn() {
             {/* Login Form */}
             <form onSubmit={handleSubmit} className="login-form">
               <div className="form-group">
-                <label htmlFor="username">Customer ID</label>
-                <input
+                <label htmlFor="input-labels">Customer ID</label>
+                <input className="input-fields"
                   type="text"
                   id="username"
                   placeholder="email@example.com"
@@ -48,8 +48,8 @@ function SignIn() {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
+                <label htmlFor="input-labels">Password</label>
+                <input className="input-fields"
                   type="password"
                   id="password"
                   value={password}
@@ -58,10 +58,10 @@ function SignIn() {
                 />
                 <Link to="/forgotpass" className="link">forgot password?</Link>
               </div>
-              <button type="submit">Login</button>
+              <button className="signin-submit" type="submit">Login</button>
               <div className='signup-link'>
                 Don't have an account? 
-                <Link to="/signUp" className="link"> Sign Up</Link>
+                <Link to="/signup" className="link"> Sign Up</Link>
               </div>
             </form>
           </div>

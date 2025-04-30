@@ -19,7 +19,9 @@ import MyOrders from './Pages/My Orders/MyOrders.jsx'
 import Wishlist from './Pages/Wishlist/Wishlist.jsx'
 import ItemSearch from './Components/MenuItems/ItemSearch.jsx'
 import FilteredItemSearch from './Pages/FilteredItemSearch/FilteredItemSearch.jsx'
+import ContactUs from './Pages/Contact Us/ContactUs.jsx'
 import { ToastContainer } from 'react-toastify'
+import FeedbackForm from './Pages/Contact Us/FeedbackForm.jsx'
 
 const App = () => {
   return (
@@ -42,6 +44,8 @@ const App = () => {
         <Route path='/wishlist' element={<Wishlist />} />
         <Route path='/search/:query' element={<ItemSearch />} />
         <Route path='/:categoryName' element={<FilteredItemSearch />} />
+        <Route path='/contactus' element={<ContactUs />} />
+        <Route path='/feedbackform' element={<FeedbackForm />} />
       </Routes>
       <ToastContainer
   position="top-center"

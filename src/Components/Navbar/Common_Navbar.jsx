@@ -86,8 +86,8 @@ const Common_Navbar = () => {
                                         </button>
                                     </span>
                                     ) : (
-                                        <button className="logout-button" onClick={logout}>
-                                            <a href="/login" className="logout" style={{color: "white"}}>Logout</a>
+                                        <button className="logout-button" onClick={logout} style={{backgroundColor: '#124734', paddingLeft: '50px'}}>
+                                            <a href="/login" className="logout" style={{color: "white", backgroundColor: '#124734'}}>Logout</a>
                                         </button>
                                     )}                                      
                                 </span>
@@ -95,6 +95,7 @@ const Common_Navbar = () => {
                                 <a onClick={handleManageProfileClick} className="manage-profile">Manage Profile</a>
                                 <a href='/wishlist' className="wishlist">My Wishlist</a>
                                 <Link to='/myorders' className="my-orders" onClick={toggleMenuSideScreen}>My Orders</Link>
+                                <Link to='/contactus' className="contact-us" onClick={toggleMenuSideScreen}>Contact Us</Link>
                             </div>
                         )}
                     </span>
@@ -137,7 +138,9 @@ const Common_Navbar = () => {
                         </div>
                         {cartSideScreenOpen && (
                             <div className={`cartSideScreenContent ${cartSideScreenOpen ? 'show' : ''}`}>
-                                <FaTimes className="close-cart-sideScreen-icon" size={24} onClick={toggleCartSideScreen} />
+                                <div className="close-cart-wrapper">
+                                    <FaTimes className="close-cart-sideScreen-icon" size={24} onClick={toggleCartSideScreen} />
+                                </div>
                                 <h2 className="cart-title" style={{fontFamily:'cursive', textAlign: 'center'}}>My Cart</h2>
                                 <div className="my-cart-items">
                                     {/*{cartItems.map((cartItem) => (
@@ -154,7 +157,7 @@ const Common_Navbar = () => {
                                     ))}*/}
                                     {Object.entries(groupCartByVendor()).map(([vendorId,group]) => (
                                         <div key={vendorId} className="vendor-specific-items">
-                                            <h6 style={{color:"#E87500", fontSize:"medium", fontWeight:"bold", textAlign:'center',fontFamily:'cursive', fontStyle:'italic'}}>From {group.business_name}:</h6>
+                                            <h6 className="from" style={{color:"#E87500", fontSize:"medium", fontWeight:"bold", textAlign:'center',fontFamily:'cursive', fontStyle:'italic'}}>From {group.business_name}:</h6>
                                             {group.items.map((item) => (
                                                 <div key={item.item_id} className="cart-item">
                                                     <div className="cart-item-description-card">

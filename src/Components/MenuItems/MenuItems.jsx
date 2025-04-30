@@ -30,6 +30,7 @@ const MenuItems = () => {
     const {restaurantID} = useParams();
     const [vendorName, setVendorName] = useState('');
     const [vendorAddress, setVendorAddress] = useState('');
+    const [vendorPhone, setVendorPhone] = useState('');
     const {cartItems,cartItemsCount,addToCart,removeFromCart,clearCart, showCartItems, groupCartByVendor, clearVendorItemsInCart,cartSideScreenOpen,toggleCartSideScreen} = useCart();
     //const [menuItems,setMenuItems] = useState([]);
      //useEffect(() => {
@@ -49,6 +50,7 @@ const MenuItems = () => {
         .then(data => {
             setVendorName(data[0].business_name);
             setVendorAddress(data[0].vendor_address);
+            setVendorPhone(data[0].vendor_phone);
             setMenuItems(data);
         })
         .catch(error => console.error('Error: ',error));
@@ -113,6 +115,7 @@ const MenuItems = () => {
         <Navbar_Wrapper /><br></br>
         <h1 className="vendor-name" style={{paddingTop:'70px', paddingLeft:'10px', textAlign:'center', color:'white',fontFamily:'cursive'}}>{vendorName}</h1>
         <h2 className="vendor-address" style={{paddingTop: '10px', paddingBottom: '20px', paddingLeft:'10px', textAlign:'center', fontFamily:'cursive', fontStyle:'italic', color:'white'}}>{vendorAddress}</h2>
+        <h3 className="vendor_phone" style={{paddingBottom: '20px', paddingLeft:'10px', textAlign:'center', fontFamily:'cursive', fontStyle:'italic', color:'white'}}>{vendorPhone}</h3> 
         <div className="menu-items">
             {menuItems.map((item) => (
                 <div key={item.item_id} className="menu-item-card">

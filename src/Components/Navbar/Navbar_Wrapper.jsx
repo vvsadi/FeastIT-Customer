@@ -8,7 +8,7 @@ const Navbar_Wrapper = () => {
     if (location.pathname.startsWith("/landing")){
         return <Landing_Navbar />;
     }
-    if (location.pathname === "/" || location.pathname.startsWith("/home") || location.pathname.startsWith("/Veg") || location.pathname.startsWith("/allrestaurants") || location.pathname.startsWith("/restaurant/") || location.pathname.startsWith("/search/") || location.pathname.startsWith("/myorders")) {
+    if (location.pathname === "/" || location.pathname.startsWith("/home") || location.pathname.startsWith("/Veg") || location.pathname.startsWith("/allrestaurants") || location.pathname.startsWith("/restaurant/") || location.pathname.startsWith("/search/") || location.pathname.startsWith("/myorders") || location.pathname.startsWith("/contactus")  || location.pathname.startsWith("/feedbackform")) {
         console.log("Current path:", location.pathname);
         console.log("Rendering:", location.pathname === "/" ? "Common_Navbar" : "Landing_Navbar");
         return <Common_Navbar />;

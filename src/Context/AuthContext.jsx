@@ -65,11 +65,11 @@ export const AuthProvider = ({children}) => {
                     setUserId(null);
                     setUserName('');
                     setAddress('');
-                    toast.info('Session expired. Please login again.', {
+                    /*toast.info('Session expired. Please login again.', {
                         position: "top-center",
                         autoClose: 2500,
-                    });
-                    navigate('/login');
+                    });*/
+                    /*navigate('/login');*/
                 }
             } catch (err) {
                 console.error("Error checking login status: ",err);
@@ -106,6 +106,7 @@ export const AuthProvider = ({children}) => {
             //}
             // Merge guestCart after user logs in and if it exists
             const cartKey = `cartUser${data.user_id}`
+            // NEw AuthContext code starts from here for the cart duplication
             let localCart = JSON.parse(localStorage.getItem(cartKey) || '[]');
             const guestCart = localStorage.getItem('guestCart');
             const guestToken = localStorage.getItem('guestToken');
@@ -133,14 +134,18 @@ export const AuthProvider = ({children}) => {
                 const backendCart = await cartRes.json();
                 const mergedCart = [...backendCart];
                 for (const localItem of localCart){
-                    const index = mergedCart.findIndex(item => item.item_id === localItem.item_id);
-                    if (index !== -1){
-                        // Item exists in backend → add quantities
-                        mergedCart[index].quantity += localItem.quantity;
-                    }
-                    else {
-                        // New item → add to mergedCart
-                        mergedCart.push(localItem);
+                    // const index = mergedCart.findIndex(item => item.item_id === localItem.item_id);
+                    // if (index !== -1){
+                    //     // Item exists in backend → add quantities
+                    //     mergedCart[index].quantity += localItem.quantity;
+                    // }
+                    // else {
+                    //     // New item → add to mergedCart
+                    //     mergedCart.push(localItem);
+                    // }
+                    const exists = mergedCart.find(item => item.item_id === localItem.item_id);
+                    if (!exists){
+                        mergedCart.push(localItem)
                     }
                 }
                 localStorage.setItem(cartKey, JSON.stringify(mergedCart));

@@ -48,7 +48,9 @@ const FoodFilters = () => {
 
   return (
     <div className="filters-container">
+      <div className="filters-scroll-wrapper">
         <FaArrowCircleLeft size={15} className="left-arrow-button" style={{color: "#000000", cursor: "pointer"}} onClick={handlePrevFilters} disabled={startIndex === 0} />
+        <div className="filters-row">
         {visibleFilters.map((filter) => (
             <div key={filter.id} className="filter-item">
                 <button 
@@ -71,7 +73,9 @@ const FoodFilters = () => {
                 <div className="filter-name">{filter.name}</div>
             </div>
         ))}
+        </div>
         <FaArrowCircleRight size={15} className="right-arrow-button" style={{color: "#000000", cursor: "pointer"}} onClick={handleNextFilters} disabled={startIndex+totalFiltersVisible>=filters.length} />
+      </div>    
     </div>
   )}
   export default FoodFilters

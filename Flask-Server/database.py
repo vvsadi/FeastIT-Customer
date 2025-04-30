@@ -176,7 +176,7 @@ def add_new_customer():
         new_user = {'customer_name':customer_name,'customer_email':customer_email,'customer_password':customer_password,'customer_phone':customer_phone,'customer_address':customer_address}
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM customers WHERE email = %s",(customer_email,))
+        cursor.execute("SELECT * FROM customers WHERE customer_email = %s",(customer_email,))
         existing = cursor.fetchone()
         if existing:
             return jsonify({'message':'User already exists'}),409
@@ -213,9 +213,11 @@ def get_menu_items(vendor_id):
     conn.close()
     business_name = vendor["business_name"] if vendor else "Unknown Vendor"
     vendor_address = vendor["vendor_address"] if vendor else "Unknown Address"
+    vendor_phone = vendor["vendor_phone"] if vendor else "Unknown Phone Number"
     for item in items:
         item["business_name"] = business_name
         item["vendor_address"] = vendor_address
+        item["vendor_phone"] = vendor_phone
     return jsonify(items)
 
 @db.route('/api/menu/search',methods=['GET'])
@@ -390,7 +392,7 @@ def add_to_orders():
             item_id = item['item_id']
             quantity = item['quantity']
             price = float(item['price'])
-            cursor.execute(""" INSERT INTO order_items (order_id, item_id, quantity, price) VALUES(
+            cursor.execute(""" INSERT INTO order_items (order_id, item_id, quantity, item_price) VALUES(
                        %s,%s,%s,%s)""", (order_id,item_id,quantity,price))
             conn.commit()
         order_status = "pending"
@@ -415,7 +417,7 @@ def delete_order(order_id):
         cursor = conn.cursor(dictionary=True)
         #cursor.execute("DELETE FROM order_items WHERE order_id = %s",(order_id,))
         cursor.execute("DELETE FROM order_status_history WHERE order_id = %s",(order_id,))
-        cursor.execute("DELETE FROM orders WHERE customer_id = %s AND order_id = %s",(customer_id,order_id))
+        cursor.execute("UPDATE orders SET order_status = 'cancelled' WHERE customer_id = %s AND order_id = %s",(customer_id,order_id))
         conn.commit()
         cursor.close()
         conn.close()
@@ -435,7 +437,7 @@ def show_orders():
         claims = get_jwt()
         all_orders = []
         if customer_id:
-            cursor.execute("""SELECT * FROM orders WHERE customer_id = %s""",(customer_id,))
+            cursor.execute("""SELECT * FROM orders WHERE customer_id = %s AND order_status != 'cancelled'""",(customer_id,))
             myorders = cursor.fetchall()
             for order in myorders:
                 order_id = int(order["order_id"])
@@ -501,6 +503,36 @@ def get_vendor_name(vendorId):
         return jsonify(vendor)
     except Exception as e:
         return jsonify({'message':'Failed to get vendor name','error':str(e)})
+
+@db.route('/api/feedbackform', methods=['POST'])
+@jwt_required()
+def add_feedback():
+    try:
+        identity = get_jwt_identity()
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        claims = get_jwt()
+        customer_id = identity
+        data = request.get_json()
+        business_name = (data['business_name']).lower()
+        comments = data['comments']
+        rating = round((float(data['rating'])),1)
+
+        cursor.execute("SELECT * FROM vendors WHERE LOWER(business_name) = %s",(business_name,))
+        vendor = cursor.fetchone()
+        if not vendor:
+            return jsonify({'message':'Business Not found'})
+        vendor_id = vendor["vendor_id"]
+
+        cursor.execute("""INSERT INTO customer_reviews (customer_id, vendor_id, rating, comments) VALUES (
+        %s,%s,%s,%s)""",(customer_id, vendor_id, rating, comments))
+        
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return jsonify({'message':'Review added successfully'})
+    except Exception as e:
+        return jsonify({'message':'Failed to add review','error':str(e)})
 
 
 if __name__ == '__main__':

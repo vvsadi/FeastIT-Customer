@@ -43,6 +43,7 @@ body {
   transition: transform 0.3s ease;
   transform: translateX(-100%); /* Initially hidden */
   overflow-y: auto;
+  gap: 10px;
 }
 
 .cartSideScreenContent.show {
@@ -194,6 +195,7 @@ body {
     display: flex;
     margin-left: auto;
     padding-right: 25px;
+    padding-top: 12px;
 }
 
 .login-button-sidescreen {
@@ -299,10 +301,21 @@ body {
     color: white;
     margin-left: 50px;
     margin-top: 20px;
-    padding-left: 50px;
 }
 
 .my-orders:hover {
+    color: #E87500;
+    cursor: pointer;
+}
+
+.contact-us {
+    display: flex;
+    color: white;
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+.contact-us:hover {
     color: #E87500;
     cursor: pointer;
 }
@@ -321,6 +334,10 @@ body {
     text-align: center;
     justify-content: center;
     font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;  /* ↓ add this line to reduce excess stacking */
+    padding: 6px 10px;     /* ↓ tighter padding */
+    font-size: 14px;
 }
 .proceed-to-checkout:hover{
     background-color: aquamarine;
@@ -364,4 +381,29 @@ body {
     border-radius: 50%;
     z-index: 10;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+  }
+
+  .from{
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+
+  .close-cart-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    background-color: #124734; /* Same as cart background to blend in */
+    z-index: 10;
+  }
+
+  .close-cart-sideScreen-icon {
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .close-cart-sideScreen-icon:hover {
+    color: #E87500;
   }

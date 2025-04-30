@@ -142,6 +142,7 @@
   .login-signup-buttons {
       display: flex;
       gap: 10px;
+      padding-top: 12px;
   }
   
   .cart {
@@ -158,6 +159,7 @@
       display: flex;
       margin-left: auto;
       padding-right: 25px;
+      padding-top: 12px;
   }
   
   .login-signup-address-cart {

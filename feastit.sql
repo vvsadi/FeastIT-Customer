@@ -82,7 +82,7 @@ CREATE TABLE order_items (
     order_id INT,
     item_id INT,
     quantity INT,
-    price DECIMAL(10,2),
+    item_price DECIMAL(10,2),
     has_offer BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
     FOREIGN KEY (item_id) REFERENCES menu_items(item_id) ON DELETE SET NULL
@@ -169,8 +169,7 @@ INSERT INTO customers (customer_name, customer_email, customer_password, custome
 ('Ethan Moore', 'ethan.moore@example.com', 'ethansecure', '5557890123', '22 Elm Ave, Stonebridge'),
 ('Mia Clark', 'mia.clark@example.com', 'miapass99', '5558901234', '99 Cherry Blvd, Ridgeway'),
 ('James Lewis', 'james.lewis@example.com', 'jameskey', '5559012345', '71 Forest Dr, Lakeview'),
-('Isabella Walker', 'isabella.walker@example.com', 'isapass', '5550123456', '33 Garden Ln, Meadowbrook'),
-('Aditya VVS', 'adityavvs@example.com', 'adityavvspass', '9998888777', '3000 Northside Blvd');
+('Isabella Walker', 'isabella.walker@example.com', 'isapass', '5550123456', '33 Garden Ln, Meadowbrook');
 
 
 -- Admin Users
@@ -246,7 +245,7 @@ INSERT INTO menu_items (vendor_id, item_name, description, category, price, avai
 (10005, 'Hotteok', 'Sweet pancakes with brown sugar, cinnamon, and peanuts.', 'Vegetarian', 6.25, TRUE);
 
 INSERT INTO menu_items (vendor_id, item_name, description, category, price, availability) VALUES
-(10006, 'Falafel Wrap', 'Falafel in pita with tahini sauce.', 'Vegan', 8.49, FALSE),
+(10006, 'Falafel Wrap', 'Falafel in pita with tahini sauce.', 'Vegan', 8.49, TRUE),
 (10006, 'Shawarma Platter', 'Chicken or beef shawarma with rice and salad.', 'Non-Vegan', 9.99, TRUE),
 (10006, 'Hummus & Pita', 'Creamy chickpea hummus with warm pita.', 'Vegan', 6.50, TRUE),
 (10006, 'Lentil Soup', 'Spiced lentil soup with lemon.', 'Vegan', 5.25, TRUE),
@@ -295,32 +294,49 @@ INSERT INTO menu_items (vendor_id, item_name, description, category, price, avai
 (10010, 'Pecan Pie', 'Pie with roasted pecans and buttery filling.', 'Vegetarian', 6.25, TRUE);
 
 -- Orders
-INSERT INTO orders (vendor_id, customer_id, total_amount, order_status, delivery_address)
+INSERT INTO orders (order_id, vendor_id, customer_id, total_amount, order_status, delivery_address)
 VALUES
-(10001, 5001, 11.98, 'confirmed', '123 Maple Street, Dallas, TX 75254'),
-(10002, 5002, 6.49, 'preparing', '456 Oak Avenue, Frisco, TX 75035'),
-(10003, 5003, 6.99, 'delivered', '2501 Preston Rd, Frisco, TX 75034'),
-(10004, 5004, 3.49, 'pending', '6001 Summerside Dr, Dallas, TX 75252'),
-(10005, 5005, 5.99, 'delivered', '3000 Independence Pkwy, Plano, TX 75075' ),
-(10006, 5006, 5.49, 'confirmed', '1200 E Collins Blvd, Richardson, TX 75081' ),
-(10007, 5007, 8.49, 'cancelled', '789 Legacy Dr, Frisco, TX 75034'),
-(10008, 5008, 4.99, 'confirmed', '4555 Belt Line Rd, Dallas, TX 75254'),
-(10009, 5009, 7.99, 'preparing', '2305 Coit Rd, Plano, TX 75075'),
-(10010, 5010, 6.49, 'delivered', '150 W Campbell Rd, Richardson, TX 75080');
+(20001, 10001, 5001, 12.49, 'confirmed', '123 Maple St, Dallas, TX'),
+(20002, 10001, 5002, 8.99, 'pending', '456 Elm St, Dallas, TX'),
+(20003, 10001, 5003, 6.99, 'delivered', '2501 Preston Rd, Frisco, TX 75034'),
+(20004, 10001, 5004, 3.49, 'pending', '6001 Summerside Dr, Dallas, TX 75252'),
+(20005, 10001, 5005, 5.99, 'delivered', '3000 Independence Pkwy, Plano, TX 75075'),
+(20006, 10002, 5006, 5.49, 'confirmed', '1200 E Collins Blvd, Richardson, TX 75081'),
+(20007, 10002, 5007, 8.49, 'cancelled', '789 Legacy Dr, Frisco, TX 75034'),
+(20008, 10003, 5008, 4.99, 'confirmed', '4555 Belt Line Rd, Dallas, TX 75254'),
+(20009, 10004, 5009, 7.99, 'preparing', '2305 Coit Rd, Plano, TX 75075'),
+(20010, 10005, 5010, 6.49, 'delivered', '150 W Campbell Rd, Richardson, TX 75080');
 
 -- Order Items
-INSERT INTO order_items (order_id, item_id, quantity, price, has_offer)
+INSERT INTO order_items (order_id, item_id, quantity, item_price, has_offer)
 VALUES
-(20001, 1, 2, 5.99, FALSE),
-(20002, 2, 1, 6.49, TRUE),
-(20003, 3, 1, 6.99, FALSE),
-(20004, 4, 1, 3.49, TRUE),
-(20005, 5, 1, 5.99, TRUE),
-(20006, 6, 1, 5.49, TRUE),
-(20007, 7, 1, 8.49, FALSE),
-(20008, 8, 1, 4.99, FALSE),
-(20009, 9, 1, 7.99, TRUE),
-(20010, 10, 1, 6.49, FALSE);
+(20001, 1, 1, 4.99, FALSE),
+(20001, 2, 2, 3.99, TRUE),
+(20001, 3, 1, 2.99, FALSE),
+(20002, 5, 1, 6.49, TRUE),
+(20002, 6, 1, 2.49, FALSE),
+(20003, 10, 1, 5.99, FALSE),
+(20003, 11, 1, 4.49, TRUE),
+(20003, 12, 2, 2.49, FALSE),
+(20004, 16, 1, 3.49, TRUE),
+(20004, 17, 2, 1.49, FALSE),
+(20004, 18, 1, 4.49, FALSE),
+(20005, 19, 1, 5.99, TRUE),
+(20005, 20, 1, 2.49, TRUE),
+(20006, 24, 1, 3.99, TRUE),
+(20006, 25, 2, 2.49, TRUE),
+(20006, 26, 1, 1.99, FALSE),
+(20007, 31, 1, 2.49, FALSE),
+(20007, 32, 2, 4.49, TRUE),
+(20007, 33, 1, 3.49, TRUE),
+(20008, 35, 1, 4.99, TRUE),
+(20008, 36, 1, 2.99, TRUE),
+(20009, 40, 1, 5.49, TRUE),
+(20009, 41, 1, 4.99, FALSE),
+(20010, 45, 1, 6.49, TRUE),
+(20010, 46, 1, 2.99, FALSE),
+(20010, 47, 1, 1.99, FALSE);
+
 
 INSERT INTO vendor_review_queue (vendor_id, reviewed_by, status, reason)
 VALUES
@@ -379,3 +395,27 @@ VALUES
 ('2024-04-06', 145, 385, 30, 11, 2820.00),
 ('2024-04-07', 155, 390, 30, 12, 2980.90),
 ('2024-04-08', 160, 395, 30, 14, 3105.75);
+
+INSERT INTO customer_reviews (customer_id, vendor_id, rating, comments, review_date) VALUES
+(5010, 10007, 4.9, 'Very satisfied with the quality.', '2025-03-28 01:00:24'),
+(5006, 10007, 3.4, 'Very satisfied with the quality.', '2025-04-12 01:00:24'),
+(5007, 10006, 3.2, 'Mediocre experience overall.', '2025-04-12 01:00:24'),
+(5006, 10008, 3.2, 'Decent food, but a bit pricey.', '2025-04-15 01:00:24'),
+(5005, 10008, 3.6, 'Amazing taste and quick delivery!', '2025-04-16 01:00:24'),
+(5005, 10001, 4.9, 'Highly recommended!', '2025-03-20 01:00:24'),
+(5010, 10002, 4.7, 'Highly recommended!', '2025-04-06 01:00:24'),
+(5001, 10007, 4.2, 'Mediocre experience overall.', '2025-04-05 01:00:24'),
+(5006, 10009, 3.0, 'Amazing taste and quick delivery!', '2025-04-16 01:00:24'),
+(5002, 10002, 3.2, 'Great customer service!', '2025-04-12 01:00:24'),
+(5010, 10007, 3.4, 'Absolutely loved the freshness!', '2025-03-18 01:00:24'),
+(5002, 10009, 3.2, 'Absolutely loved the freshness!', '2025-03-23 01:00:24'),
+(5006, 10001, 3.3, 'Mediocre experience overall.', '2025-04-06 01:00:24'),
+(5009, 10003, 4.1, 'Absolutely loved the freshness!', '2025-03-30 01:00:24'),
+(5001, 10004, 4.4, 'Not as expected. Needs improvement.', '2025-04-09 01:00:24');
+
+
+ALTER TABLE menu_items ADD nutritional_info TEXT;
+
+ALTER TABLE order_status_history ADD COLUMN reason TEXT;
+
+
