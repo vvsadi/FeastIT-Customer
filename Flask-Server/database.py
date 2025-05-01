@@ -267,9 +267,19 @@ def add_to_cart():
             key = f"user_{identity}" if identity else f"guest_{data.get('guest_token')}"
         except Exception as e:
             key = f"guest_{data.get('guest_token')}"
+        # if key not in user_carts:
+        #     user_carts[key] = []
+        # user_carts[key].append(item)
         if key not in user_carts:
             user_carts[key] = []
-        user_carts[key].append(item)
+
+        # Try to find existing item with the same item_id
+        existing_item = next((i for i in user_carts[key] if i['item_id'] == item_id), None)
+
+        if existing_item:
+            existing_item['quantity'] += item_quantity  # Merge quantities
+        else:
+            user_carts[key].append(item)  # New item
         cursor.close()
         conn.close()
         return jsonify({"message":"Item added","cart":user_carts[key]})

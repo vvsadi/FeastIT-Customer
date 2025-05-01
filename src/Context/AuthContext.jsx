@@ -173,6 +173,14 @@ export const AuthProvider = ({children}) => {
         Cookies.remove('userName');
         Cookies.remove('userId');
         localStorage.removeItem('deliveryAddress');
+        // 🔥 Clear cart (both user and guest)
+        const previousUserId = Cookies.get('userId');
+        if (previousUserId) {
+        localStorage.removeItem(`cartUser${previousUserId}`);
+        }
+        localStorage.removeItem('guestCart');
+        localStorage.removeItem('guestToken');
+        localStorage.removeItem('guestTokenCreated');
         setAddress('');
         navigate('/login');
     };

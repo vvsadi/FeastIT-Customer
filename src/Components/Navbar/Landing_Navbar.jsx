@@ -49,8 +49,8 @@ const Landing_Navbar = () => {
                                         </button>
                                     </span>
                                     ) : (
-                                        <button className="logout-button" onClick={logout}>
-                                            <Link to="/login" className="logout" style={{color: "white"}}>Logout</Link>
+                                        <button className="logout-button" onClick={logout} style={{backgroundColor: '#124734', paddingLeft: '50px'}}>
+                                            <Link to="/login" className="logout" style={{color: "white", backgroundColor:'#124734'}}>Logout</Link>
                                         </button>
                                     )}                                      
                                 </span>
